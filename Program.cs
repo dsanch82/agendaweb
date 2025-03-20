@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using AgendaWeb.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
 // Usa la variable de entorno para la conexión
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -19,6 +20,10 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
+// ?? Configurar el puerto correcto para Render
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+app.Urls.Add($"http://*:{port}");
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -29,7 +34,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -38,4 +42,3 @@ app.MapControllerRoute(
 
 app.Run();
 
-app.Run();

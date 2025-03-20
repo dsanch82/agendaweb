@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AgendaWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ceae81a30df6f6ceb5fbb3fcf6615620b162a9f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56064b50818a2aa75064adb2c0cfafa6cc7aab2b")]
 [assembly: System.Reflection.AssemblyProductAttribute("AgendaWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AgendaWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
