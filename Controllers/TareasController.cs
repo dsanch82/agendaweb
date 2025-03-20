@@ -1,14 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AgendaWeb.Models;
+using System.Threading.Tasks;
 
 namespace AgendaWeb.Controllers
 {
-    [Route("api/[controller]")] // Define la ruta como /api/tareas
-    [ApiController] // Indica que este es un controlador de API
+    [Route("api/[controller]")]
+    [ApiController]
     public class TareasController : ControllerBase
     {
         private readonly AgendaContext _context;
@@ -41,8 +39,13 @@ namespace AgendaWeb.Controllers
 
         // POST: api/tareas
         [HttpPost]
-        public async Task<ActionResult<Tarea>> PostTarea(Tarea tarea)
+        public async Task<ActionResult<Tarea>> CreateTarea([FromBody] Tarea tarea)
         {
+            if (tarea == null)
+            {
+                return BadRequest("Los datos de la tarea son inválidos.");
+            }
+
             _context.Tareas.Add(tarea);
             await _context.SaveChangesAsync();
 
@@ -51,11 +54,11 @@ namespace AgendaWeb.Controllers
 
         // PUT: api/tareas/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTarea(int id, Tarea tarea)
+        public async Task<IActionResult> UpdateTarea(int id, [FromBody] Tarea tarea)
         {
             if (id != tarea.Id)
             {
-                return BadRequest();
+                return BadRequest("El ID de la tarea no coincide.");
             }
 
             _context.Entry(tarea).State = EntityState.Modified;
