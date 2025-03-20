@@ -1,39 +1,20 @@
-using AgendaWeb.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura servicios
+// Agregar servicios al contenedor
 builder.Services.AddControllersWithViews();
 
-// Base de datos SQLite
-builder.Services.AddDbContext<AgendaContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Configuración de idioma español
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    var supportedCultures = new[]
-    {
-        new CultureInfo("es-ES")
-    };
-
-    options.DefaultRequestCulture = new RequestCulture("es-ES");
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-});
-
-// Construye la app
 var app = builder.Build();
 
-// Usa configuración de idioma español
-app.UseRequestLocalization();
+// Configurar el puerto para Render (si no existe, usa el 5000)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://*:{port}");
 
-// Configuración por defecto de ASP.NET Core
+// Configurar middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -42,11 +23,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
+// Definir rutas
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

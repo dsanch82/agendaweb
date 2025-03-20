@@ -367,3 +367,4 @@ C:\AgendaWeb\bin\Debug\net9.0\Microsoft.Extensions.Localization.dll
 C:\AgendaWeb\bin\Debug\net9.0\Microsoft.Extensions.Localization.Abstractions.dll
 C:\AgendaWeb\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll
 C:\AgendaWeb\obj\Debug\net9.0\compressed\7c0sr6rwnv-2n4mha42ki.gz
+C:\AgendaWeb\obj\Debug\net9.0\AgendaWeb.sourcelink.json
