@@ -1,0 +1,5 @@
+/* CSS Personalizado */ 
+body { background-color: #f2f6ff; color: #333; font-family:Arial, sans-serif; } 
+h1, h2, h3 { color: #004085; } 
+.btn-primary { background-color: #007bff; border-color: #0056b3; } 
+table { border-radius: 6px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); } 
