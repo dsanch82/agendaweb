@@ -3,22 +3,16 @@ using AgendaWeb.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar la conexión a la base de datos
+// Usa la variable de entorno para la conexión
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AgendaContext>(options =>
-    options.UseSqlite(connectionString)); // Usa el proveedor adecuado
+    options.UseNpgsql(connectionString));
 
-// Configurar el puerto manualmente si Render lo requiere
-var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
-builder.WebHost.UseUrls($"http://*:{port}");
-
-// Agregar servicios al contenedor
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configurar middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -27,7 +21,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
